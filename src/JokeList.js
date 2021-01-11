@@ -12,7 +12,10 @@ class JokeList extends React.Component {
   }
 
   componentDidMount() {
-    if (this.state.jokes.length === 0) this.getJokes();
+    if (this.state.jokes.length === 0) {
+      const storedJokes = localStorage.getItem('jokes');
+      storedJokes ? this.setState({ jokes: JSON.parse(storedJokes) }) : this.getJokes();
+    }
   }
 
   componentDidUpdate() {
@@ -39,6 +42,7 @@ class JokeList extends React.Component {
         }
       }
       this.setState({ jokes: j });
+      localStorage.setItem('jokes', JSON.stringify(j));
     } catch (e) {
       console.log(e);
     }
@@ -49,12 +53,14 @@ class JokeList extends React.Component {
   vote(id, delta) {
     const newJokes = this.state.jokes.map(j => (j.id === id ? { ...j, votes: j.votes + delta } : j));
     this.setState({ jokes: newJokes });
+    localStorage.setItem('jokes', JSON.stringify(newJokes));
   }
 
   /* clear the jokes list so that new jokes will be loaded */
 
   clearJokes() {
     this.setState({ jokes: [] });
+    localStorage.removeItem('jokes');
   }
 
   /* render: either loading spinner or list of sorted jokes. */
