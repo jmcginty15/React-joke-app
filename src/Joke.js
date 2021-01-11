@@ -6,6 +6,7 @@ class Joke extends React.Component {
     super(props);
     this.upVote = this.upVote.bind(this);
     this.downVote = this.downVote.bind(this);
+    this.handleLockToggle = this.handleLockToggle.bind(this);
   }
 
   upVote() {
@@ -14,6 +15,10 @@ class Joke extends React.Component {
 
   downVote() {
     this.props.vote(this.props.id, -1);
+  }
+
+  handleLockToggle() {
+    this.props.toggleLock(this.props.id);
   }
 
   render() {
@@ -26,6 +31,10 @@ class Joke extends React.Component {
 
           <button onClick={this.downVote}>
             <i className="fas fa-thumbs-down" />
+          </button>
+
+          <button onClick={this.handleLockToggle}>
+            {this.props.locked ? 'Unlock' : 'Lock' }
           </button>
 
           {this.props.votes}
