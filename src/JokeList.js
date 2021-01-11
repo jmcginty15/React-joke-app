@@ -8,6 +8,7 @@ class JokeList extends React.Component {
     super(props);
     this.state = { jokes: [] };
     this.vote = this.vote.bind(this);
+    this.resetVotes = this.resetVotes.bind(this);
     this.clearJokes = this.clearJokes.bind(this);
   }
 
@@ -56,6 +57,14 @@ class JokeList extends React.Component {
     localStorage.setItem('jokes', JSON.stringify(newJokes));
   }
 
+  /* reset votes to zero for all jokes */
+
+  resetVotes() {
+    const newJokes = this.state.jokes.map(j => ({ ...j, votes: 0 }));
+    this.setState({ jokes: newJokes });
+    localStorage.setItem('jokes', JSON.stringify(newJokes));
+  }
+
   /* clear the jokes list so that new jokes will be loaded */
 
   clearJokes() {
@@ -73,6 +82,10 @@ class JokeList extends React.Component {
         <div className="JokeList">
           <button className="JokeList-getmore" onClick={this.clearJokes}>
             Get New Jokes
+          </button>
+
+          <button className="JokeList-getmore" onClick={this.resetVotes}>
+            Reset Votes
           </button>
 
           {sortedJokes.map(j => (

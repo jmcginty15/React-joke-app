@@ -7,6 +7,8 @@
 
 .JokeList-getmore {
   margin: 1em 0;
+  margin-left: 5px;
+  margin-right: 5px;
   font-size: 150%;
   border-radius: 0.5em;
   background-color: tomato;
