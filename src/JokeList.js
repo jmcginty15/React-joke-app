@@ -76,7 +76,11 @@ class JokeList extends React.Component {
       );
     }
 
-    return null;
+    return (
+      <div className="loading">
+        <h1>Loading jokes...</h1>
+      </div>
+    )
   }
 }
 
